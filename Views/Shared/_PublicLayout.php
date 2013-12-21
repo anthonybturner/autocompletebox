@@ -14,8 +14,9 @@
 	
 		<? include $view ?>
 
-		<? if(function_exists('Scripts')) Scripts(); ?>
 	  	<!-- These scripts are global through out the site-->
+	  	 <script src="http://code.jquery.com/jquery.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<? if(function_exists('Scripts')) Scripts(); ?>
 	</body>
 </html>
