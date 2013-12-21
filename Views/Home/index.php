@@ -7,15 +7,35 @@ include_once '../../inc/_global.php';
 
 switch ($action) {
 	
+	case 'list':
+		
+		$view = 'list.php';
+		$title = "Search";
+		break;
+	
 	case 'terms':
 		
 		$text = $_GET['term'];
 		$column = $_GET['column'];
 		$model = ZipCodes::GetSpecial($text, $column);
 		$view 	= 'search.php';
-
 	break;
+	
+	case 'search':
+		
+		$city = $_POST['city'];
+		$state = $_POST['state'];
+		$result = ZipCodes::GetAddress($city, $state);
 
+		foreach ($result as $key => $value) {
+				
+			$model[] = ( ZipCodes::GetUser($value['Users_id']));
+		}
+
+		$view = 'list.php';
+		$title = "Search";
+		break;
+		
 	default:	
 	
 		$model = ZipCodes::Get();

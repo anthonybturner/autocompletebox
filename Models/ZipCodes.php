@@ -18,6 +18,26 @@ class ZipCodes {
 		}
 	}
 	
+	static public function GetAddress($city, $state){
+
+		if( isset($city)){
+        	 $sql = "SELECT Users_id FROM Addresses WHERE City='$city'";
+        	return fetch_All($sql);
+		}
+		else {
+			
+			$sql = "SELECT * FROM Addresses";
+        	return fetch_All($sql);
+		}
+	}
+	
+	static public function GetUser($id){
+		
+		$sql = "SELECT * From Users WHERE id='$id' ";
+		 return fetch_one($sql);                        
+	}
+	
+	
 	
 	static public function GetSpecial($text=null, $column){
 		
