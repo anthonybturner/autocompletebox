@@ -22,11 +22,8 @@ switch ($action) {
 	break;
 	
 	case 'search':
-		
-		$city = $_POST['city'];
-		$state = $_POST['state'];
-		$result = ZipCodes::GetAddress($city, $state);
 
+		$result = ZipCodes::GetAddress($_POST['data'][0], '');
 		foreach ($result as $key => $value) {
 				
 			$model[] = ( ZipCodes::GetUser($value['Users_id']));

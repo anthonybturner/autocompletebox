@@ -21,7 +21,7 @@ class ZipCodes {
 	static public function GetAddress($city, $state){
 
 		if( isset($city)){
-        	 $sql = "SELECT Users_id FROM Addresses WHERE City='$city'";
+        	 $sql = "SELECT Users_id FROM Addresses WHERE City LIKE '%$city%'";
         	return fetch_All($sql);
 		}
 		else {

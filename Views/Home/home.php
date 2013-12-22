@@ -32,12 +32,24 @@
 				<tbody>
 					<div>
 						<tr>
-							<td><input data-col="City" id="city-tag"> </td>
-							<td><input data-col="State" id="state-tag"></td>
-							<td><input data-col="Zipcode" id="Zipcode-tag"> </td>
-							<td><input data-col="other" id="tags"> </td>
-							<td><input data-col="other" id="tags"> </td>
-							<td><button data-col="btn" id ="search" class="btn-primary">Search</button></th>	
+							<td>
+								<input data-col="City" id="city-tag"> 
+							</td>
+							<td>
+								<input data-col="State" id="state-tag">
+							</td>
+							<td>
+								<input data-col="Zipcode" id="Zipcode-tag"> 
+							</td>
+							<td>
+								<input data-col="other" id="tags"> 
+							</td>
+							<td>
+								<input data-col="other" id="tags"> 
+							</td>
+							<td>
+								<button data-col="btn" id ="search-button" class="btn-primary">Search</button>
+							</td>	
 						</tr>
 					
 					</div>
@@ -53,34 +65,47 @@
 	<? global $model; ?>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
-				
+			
+		var details = $("#details");		
 		//Add autocomplete to each cell
 		$('tr td input').each(function(){
 				
-			var id = "#" + this.id ;
-			var column = $(this).data('col');
+			var id = "#" + this.id,
+			column = $(this).data('col');
 			
-			$(id).autocomplete(
-		    {
+			$(id).autocomplete({
 		        source: "?action=terms&column="+column+"&format=plain",
 		        minLength: 1
 		    });
+		    
+		    $( id ).autocomplete({
+		 		 search: function( event, ui ) {
+		 		 	
+		 		 				var data = [];
+
+		 		 	$('input').each(function(){
+				
+						data.push( $(this).val());
+						//data[$(this).data('col')] = $(this).val();	
+					});
+			
+					details.load("?action=search", {'data[]': data, format: 'plain'});
+		 		 }
+			});
 		});
 
-		$( "#search" ).on( "click", function(e){
-					
+		$( "#search-button" ).on( "click", function(e){
+			
+			var data = [];
 			//Add autocomplete to each cell
-		
-			var info;	
+			$('input').each(function(){
+				
+				data.push( $(this).val());
+				//data[$(this).data('col')] = $(this).val();	
+			});
 			
-			var city = $("#city-tag").val() ;
-			var state =  $("#state-tag").val();
-			var zip = $("#Zipcode-tag").val();
-			
-			$("#details").load("?action=search", {city: city, state: state, format: "plain"});
-			
+			details.load("?action=search", {'data[]': data, format: 'plain'});	
 		});
-	
 	</script>
 
 <? } ?>
